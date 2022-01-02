@@ -5,25 +5,24 @@ class Operations extends Component {
     constructor() {
         super()
         this.state = {
-            transactions: []
+            amount: "",
+            vendor: "",
+            category: ""
         }
     }
-    addOperation = () => {
-        this.props.addOperation(this.state)
+    deposit = () => {
+        this.props.addOperation(this.state.amount, this.state.vendor, this.state.category)
     }
 
     handleInputChange = event => {
         const {value, name} = event.target; 
-        console.log(value, name)
-        let transactions = [...this.state.transactions]
-        let transaction = {[name]: value}
-        transactions.push(transaction)
-        this.setState({ transactions })
-        console.log(transactions)
+        this.setState({ [name]: value })
     }
 
-    showAlert = () => {
-        console.log(`${this.state.transactions}`)
+    withdraw = () => {
+        let amount = this.state.amount
+        this.setState({ amount })
+        this.props.addOperation(this.state.amount * -1, this.state.vendor, this.state.category)
     }
 
     render() {
@@ -31,10 +30,29 @@ class Operations extends Component {
             <div id="operations">
                 <h1>Operations</h1>
                 <div id="u-input">
-                    <input type="text" name="amount" placeholder="Amount" onChange={this.handleInputChange}/>
-                    <input type="text" name="vendor" placeholder="Vendor" onChange={this.handleInputChange}/>
-                    <input type="text" name="category" placeholder="Category" onChange={this.handleInputChange}/>
-                    <button onClick={this.showAlert}>Submit</button>
+                    <input
+                        type="text"
+                        name="amount"
+                        placeholder="Amount"
+                        value={this.state.amount}
+                        onChange={this.handleInputChange}
+                    />
+                    <input
+                        type="text"
+                        name="vendor"
+                        placeholder="Vendor"
+                        value={this.state.vendor}
+                        onChange={this.handleInputChange}
+                    />
+                    <input
+                        type="text"
+                        name="category"
+                        placeholder="Category"
+                        value={this.state.category}
+                        onChange={this.handleInputChange}
+                    />
+                    <button onClick={this.deposit}>Deposit</button>
+                    <button onClick={this.withdraw}>Withdraw</button>
                 </div>
             </div>
         )

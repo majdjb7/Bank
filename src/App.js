@@ -22,12 +22,16 @@ class App extends Component {
 
   getBalance = () => {
     let balance = 0
-    this.state.transactions.map(tr => balance += tr.amount)
+    this.state.transactions.map(tr => balance += parseInt(tr.amount))
     return balance
   }
 
-  addOperation = (params) => {
-    console.log(params)
+  addOperation = (amount, vendor, category) => {
+    console.log(amount, vendor, category);
+    let transactions = [...this.state.transactions]
+    let newTransaction = {amount: amount, vendor: vendor, category: category}
+    transactions.push(newTransaction)
+    this.setState({ transactions })
   }
 
 
