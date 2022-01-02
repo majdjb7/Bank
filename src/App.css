@@ -5,3 +5,8 @@
   text-align: left;
   /* text-shadow: -1px -1px 0 #ecf0f1, 1px -1px 0 #ecf0f1, -1px 1px 0 #ecf0f1, 1px 1px 0 black; */
 }
+
+#balance {
+  text-align: right;
+  display: inline-block;
+}

@@ -15,26 +15,40 @@ class App extends Component {
         { amount: -7, vendor: "Runescape", category: "Entertainment" },
         { amount: -20, vendor: "Subway", category: "Food" },
         { amount: -98, vendor: "La Baguetterie", category: "Food" }
-      ]
+      ],
+      balance: 0
     }
   }
+
+  getBalance = () => {
+    let balance = 0
+    this.state.transactions.map(tr => balance += tr.amount)
+    return balance
+  }
+
+  addOperation = (params) => {
+    console.log(params)
+  }
+
+
   render() {
     const state = this.state
+    const balance = this.getBalance()
     return (
       <Router>
       <div className="App">
-          {/* <h1 id="logo">Bank</h1> */}
           <div id="main-links">
             <Link className="link" to="/">Home</Link>
             <Link className="link" to="/transactions">Transactions</Link>
+            <Link className="link" to="/operations">Operations</Link>
+            <span id="balance">Balance: {balance}₪</span>
 
-            {/* <Link className='link' to="/Majd1/Catalog">Catalog</Link> */}
           </div>
+
 
           {/* <Route path="/" exact render={() => <Home />}></Route> */}
           <Route path="/transactions" exact render={() => <Transactions  state={state}/>} />
-          {/* <Route path="/:userID/catalog" exact render={({ match }) => <Catalog match={match} state={state} makeRented={this.makeRented}/>} /> */}
-          {/* <Route path="/movies/:movieID" exact render={({ match }) => <MovieDetail match={match} state={state}/>}/> */}
+          <Route path="/operations" exact render={() => <Operations addOperation={this.addOperation} state={state}/>} />
         </div>
       </Router>
     );
