@@ -4,7 +4,7 @@ import '../styles/transaction.css'
 class Transaction extends Component {
 
     deleteTransaction = () => {
-        this.props.deleteTransaction(this.props.transaction.id)
+        this.props.deleteTransaction(this.props.transaction._id)
     }
 
     render() {

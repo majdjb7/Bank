@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
+import axios from 'axios'
 import Transaction from './components/Transaction';
 import Transactions from './components/Transactions';
 import Operations from './components/Operations';
@@ -10,14 +11,17 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      transactions: [
-        { id: 1, amount: 3200, vendor: "Elevation", category: "Salary" },
-        { id: 2, amount: -7, vendor: "Runescape", category: "Entertainment" },
-        { id: 3, amount: -20, vendor: "Subway", category: "Food" },
-        { id: 4, amount: -98, vendor: "La Baguetterie", category: "Food" }
-      ],
+      transactions: [],
       balance: 0
     }
+  }
+
+  componentDidMount() {
+    axios.get(`http://localhost:3001/transactions`)
+      .then(res => {
+        const transactions = res.data;
+        this.setState({ transactions });
+      })
   }
 
   getBalance = () => {
@@ -29,13 +33,21 @@ class App extends Component {
   addOperation = (amount, vendor, category) => {
     let transactions = [...this.state.transactions]
     let newTransaction = {amount: amount, vendor: vendor, category: category}
+
+    axios.post(`http://localhost:3001/transaction`, { newTransaction })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+
     transactions.push(newTransaction)
     this.setState({ transactions })
   }
 
   deleteTransaction = (transactionId) => {
     let transactions = [...this.state.transactions]
-    let indexOfTransaction = transactions.findIndex(tr => tr.id==transactionId)
+    let indexOfTransaction = transactions.findIndex(tr => tr._id==transactionId)
+    axios.delete(`http://localhost:3001/transaction/${transactionId}`)
     transactions.splice(indexOfTransaction, 1)
     this.setState({ transactions })
   }

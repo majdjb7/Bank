@@ -13,7 +13,7 @@ class Transactions extends Component {
         return (
             <div id="transactions">
                 <h1>Transactions</h1>
-                {transactions.map(tr => <Transaction key={tr.id} deleteTransaction={this.deleteTransaction} transaction={tr} />)}
+                {transactions.map(tr => <Transaction key={tr._id} deleteTransaction={this.deleteTransaction} transaction={tr} />)}
             </div>
         )
     }

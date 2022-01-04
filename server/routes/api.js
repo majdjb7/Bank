@@ -5,7 +5,6 @@ const Transaction = require('../models/Transaction')
 router.get('/transactions', function(req, res) {
     try {
         Transaction.find({}, function(err, transactions) {
-            console.log(transactions)
             res.send(transactions)
         })
     }
@@ -18,10 +17,10 @@ router.get('/transactions', function(req, res) {
 router.post('/transaction', function(req, res) {
     try {
         transaction1 = new Transaction({
-                    id: req.body.id,
-                    amount: req.body.amount,
-                    vendor: req.body.vendor,
-                    category: req.body.category
+                    id: req.body.newTransaction.id,
+                    amount: req.body.newTransaction.amount,
+                    vendor: req.body.newTransaction.vendor,
+                    category: req.body.newTransaction.category
         })
         transaction1.save()
         res.send(transaction1)
@@ -33,15 +32,14 @@ router.post('/transaction', function(req, res) {
 })
 
 // ********************************************************************************************************
-router.delete('/transaction', function(req, res) {
+router.delete('/transaction/:id', function(req, res) {
     try {
-        console.log(req.body)
-        Transaction.findOneAndDelete({id: req.body.id}, function(err, transaction) {
+        console.log(req.params.id)
+        Transaction.findOneAndDelete({_id: req.params.id}, function(err, transaction) {
             console.log(transaction)
             res.send(transaction)
         })
-        
-        }
+    }
     catch(error) {
         console.log(error)
         res.send(error)
