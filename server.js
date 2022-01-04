@@ -3,9 +3,9 @@ const express = require('express')
 const path = require('path')
 const api = require('./server/routes/api')
 const mongoose = require('mongoose')
-// var Sequelize = require("sequelize");
+var Sequelize = require("sequelize");
 
-// const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
+const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
 
 mongoose.connect(process.env.MONGODB_URL||'mongodb://localhost/bankDB', { useNewUrlParser: true })
     .then(() => console.log("connected")).catch((error) => console.log(error))
@@ -28,9 +28,9 @@ let port = 3001
 
 app.use('/', api)
 
-// app.get('*', function (req, res) {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.listen(process.env.PORT || port, function(request, response){
     console.log(`Server is up and running smoothly`)
