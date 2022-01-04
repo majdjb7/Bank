@@ -11,10 +11,10 @@ class App extends Component {
     super()
     this.state = {
       transactions: [
-        { amount: 3200, vendor: "Elevation", category: "Salary" },
-        { amount: -7, vendor: "Runescape", category: "Entertainment" },
-        { amount: -20, vendor: "Subway", category: "Food" },
-        { amount: -98, vendor: "La Baguetterie", category: "Food" }
+        { num: 1, amount: 3200, vendor: "Elevation", category: "Salary" },
+        { num: 2, amount: -7, vendor: "Runescape", category: "Entertainment" },
+        { num: 3, amount: -20, vendor: "Subway", category: "Food" },
+        { num: 4, amount: -98, vendor: "La Baguetterie", category: "Food" }
       ],
       balance: 0
     }
@@ -27,10 +27,16 @@ class App extends Component {
   }
 
   addOperation = (amount, vendor, category) => {
-    console.log(amount, vendor, category);
     let transactions = [...this.state.transactions]
     let newTransaction = {amount: amount, vendor: vendor, category: category}
     transactions.push(newTransaction)
+    this.setState({ transactions })
+  }
+
+  deleteTransaction = (transactionId) => {
+    let transactions = [...this.state.transactions]
+    let indexOfTransaction = transactions.findIndex(tr => tr.num==transactionId)
+    transactions.splice(indexOfTransaction, 1)
     this.setState({ transactions })
   }
 
@@ -46,12 +52,9 @@ class App extends Component {
             <Link className="link" to="/transactions">Transactions</Link>
             <Link className="link" to="/operations">Operations</Link>
             <span id="balance">Balance: {balance}₪</span>
-
           </div>
 
-
-          {/* <Route path="/" exact render={() => <Home />}></Route> */}
-          <Route path="/transactions" exact render={() => <Transactions  state={state}/>} />
+          <Route path="/transactions" exact render={() => <Transactions deleteTransaction={this.deleteTransaction} state={state}/>} />
           <Route path="/operations" exact render={() => <Operations addOperation={this.addOperation} state={state}/>} />
         </div>
       </Router>

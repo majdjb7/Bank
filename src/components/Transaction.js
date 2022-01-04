@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import '../styles/transaction.css'
 
 class Transaction extends Component {
+
+    deleteTransaction = () => {
+        this.props.deleteTransaction(this.props.transaction.num)
+    }
+
     render() {
         const transaction = this.props.transaction
         return (
@@ -10,6 +15,7 @@ class Transaction extends Component {
                 <div>Amount: {transaction.amount}</div>
                 <div>Vendor: {transaction.vendor}</div>
                 <div>category: {transaction.category}</div>
+                <button onClick={this.deleteTransaction}>Delete</button>
             </div>
         )
     }
