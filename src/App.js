@@ -62,7 +62,7 @@ class App extends Component {
       <Router>
       <div className="App">
           <div id="main-links">
-            <Link className="link" to="/"></Link>
+            <Link className="link" to="/">Home</Link>
             <Link className="link" to="/transactions">Transactions</Link>
             <Link className="link" to="/operations">Operations</Link>
             <Link className="link" to="/summary">Summary</Link>

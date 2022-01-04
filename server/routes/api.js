@@ -31,29 +31,6 @@ router.post('/transaction', function(req, res) {
     }
 })
 
-// ********************************************************************************************************
-router.delete('/transaction/:id', function(req, res) {
-    try {
-        console.log(req.params.id)
-        Transaction.findOneAndDelete({_id: req.params.id}, function(err, transaction) {
-            console.log(transaction)
-            res.send(transaction)
-        })
-    }
-    catch(error) {
-        console.log(error)
-        res.send(error)
-    }
-})
-// ********************************************************************************************************
-router.delete('/city', function(req, res) {
-    let cityName = req.query.cityName
-    City.findOneAndDelete({name: cityName}, function(err, city) {
-        console.log(city)
-    })
-    res.end()
-})
-
 
 
 
