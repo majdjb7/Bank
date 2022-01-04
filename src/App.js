@@ -5,6 +5,8 @@ import axios from 'axios'
 import Transaction from './components/Transaction';
 import Transactions from './components/Transactions';
 import Operations from './components/Operations';
+import Summary from './components/Summary';
+import Home from './components/Home';
 
 
 class App extends Component {
@@ -60,14 +62,16 @@ class App extends Component {
       <Router>
       <div className="App">
           <div id="main-links">
-            <Link className="link" to="/">Home</Link>
+            <Link className="link" to="/"></Link>
             <Link className="link" to="/transactions">Transactions</Link>
             <Link className="link" to="/operations">Operations</Link>
+            <Link className="link" to="/summary">Summary</Link>
             <span id="balance">Balance: {balance}₪</span>
           </div>
-
+          <Route path="/" exact render={() => <Home state={state}/>} />
           <Route path="/transactions" exact render={() => <Transactions deleteTransaction={this.deleteTransaction} state={state}/>} />
           <Route path="/operations" exact render={() => <Operations addOperation={this.addOperation} state={state}/>} />
+          <Route path="/summary" exact render={() => <Summary state={state}/>} />
         </div>
       </Router>
     );
