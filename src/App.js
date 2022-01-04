@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 import axios from 'axios'
-import Transaction from './components/Transaction';
 import Transactions from './components/Transactions';
 import Operations from './components/Operations';
 import Summary from './components/Summary';
