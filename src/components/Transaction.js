@@ -9,8 +9,15 @@ class Transaction extends Component {
 
     render() {
         const transaction = this.props.transaction
+        let color
+        if(transaction.amount>=500) {
+            color = "green"
+        }
+        else{
+            color="red"
+        }
         return (
-            <div>
+            <div className={color}>
                 <h2>Transaction</h2>
                 <div>Amount: {transaction.amount}</div>
                 <div>Vendor: {transaction.vendor}</div>

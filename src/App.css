@@ -10,3 +10,12 @@
   text-align: right;
   display: inline-block;
 }
+
+.green {
+  background-color: rgb(101, 196, 101);
+  font-weight: bold;
+}
+.red {
+  background-color: rgb(252, 126, 126);
+  font-weight: bold;
+}

@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3001/transactions`)
+    axios.get(`/transactions`)
       .then(res => {
         const transactions = res.data;
         this.setState({ transactions });
@@ -28,15 +28,22 @@ class App extends Component {
 
   getBalance = () => {
     let balance = 0
+    let color
     this.state.transactions.map(tr => balance += parseInt(tr.amount))
-    return balance
+    if(balance>=500) {
+        color = "green"
+    }
+    else{
+        color="red"
+    }
+    return [balance, color]
   }
 
   addOperation = (amount, vendor, category) => {
     let transactions = [...this.state.transactions]
     let newTransaction = {amount: amount, vendor: vendor, category: category}
 
-    axios.post(`http://localhost:3001/transaction`, { newTransaction })
+    axios.post(`/transaction`, { newTransaction })
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -49,7 +56,7 @@ class App extends Component {
   deleteTransaction = (transactionId) => {
     let transactions = [...this.state.transactions]
     let indexOfTransaction = transactions.findIndex(tr => tr._id==transactionId)
-    axios.delete(`http://localhost:3001/transaction/${transactionId}`)
+    axios.delete(`/transaction/${transactionId}`)
     transactions.splice(indexOfTransaction, 1)
     this.setState({ transactions })
   }
@@ -57,7 +64,11 @@ class App extends Component {
 
   render() {
     const state = this.state
-    const balance = this.getBalance()
+    let balance = this.getBalance()
+    let balanceAmount = balance[0]
+    let balanceColor = balance[1]
+    console.log(balanceAmount);
+    
     return (
       <Router>
       <div className="App">
@@ -66,7 +77,7 @@ class App extends Component {
             <Link className="link" to="/transactions">Transactions</Link>
             <Link className="link" to="/operations">Operations</Link>
             <Link className="link" to="/summary">Summary</Link>
-            <span id="balance">Balance: {balance}₪</span>
+            <span className={balanceColor} id="balance">Balance: {balanceAmount}₪</span>
           </div>
           <Route path="/" exact render={() => <Home state={state}/>} />
           <Route path="/transactions" exact render={() => <Transactions deleteTransaction={this.deleteTransaction} state={state}/>} />
