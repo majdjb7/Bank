@@ -11,10 +11,10 @@ class App extends Component {
     super()
     this.state = {
       transactions: [
-        { num: 1, amount: 3200, vendor: "Elevation", category: "Salary" },
-        { num: 2, amount: -7, vendor: "Runescape", category: "Entertainment" },
-        { num: 3, amount: -20, vendor: "Subway", category: "Food" },
-        { num: 4, amount: -98, vendor: "La Baguetterie", category: "Food" }
+        { id: 1, amount: 3200, vendor: "Elevation", category: "Salary" },
+        { id: 2, amount: -7, vendor: "Runescape", category: "Entertainment" },
+        { id: 3, amount: -20, vendor: "Subway", category: "Food" },
+        { id: 4, amount: -98, vendor: "La Baguetterie", category: "Food" }
       ],
       balance: 0
     }
@@ -35,7 +35,7 @@ class App extends Component {
 
   deleteTransaction = (transactionId) => {
     let transactions = [...this.state.transactions]
-    let indexOfTransaction = transactions.findIndex(tr => tr.num==transactionId)
+    let indexOfTransaction = transactions.findIndex(tr => tr.id==transactionId)
     transactions.splice(indexOfTransaction, 1)
     this.setState({ transactions })
   }
