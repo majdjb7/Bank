@@ -3,10 +3,11 @@ const express = require('express')
 const path = require('path')
 const api = require('./server/routes/api')
 const mongoose = require('mongoose')
+// var Sequelize = require("sequelize");
 
-const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
+// const sequelize = new Sequelize(process.env.CLEARDB_DATABASE_URL);
 
-mongoose.connect(sequelize||'mongodb://localhost/bankDB', { useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URL||'mongodb://localhost/bankDB', { useNewUrlParser: true })
     .then(() => console.log("connected")).catch((error) => console.log(error))
 
 const app = express()
