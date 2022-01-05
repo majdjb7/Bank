@@ -31,7 +31,19 @@ router.post('/transaction', function(req, res) {
     }
 })
 
-
+router.delete('/transaction/:id', function(req, res) {
+    try {
+        console.log(req.params.id)
+        Transaction.findOneAndDelete({_id: req.params.id}, function(err, transaction) {
+            console.log(transaction)
+            res.send(transaction)
+        })
+    }
+    catch(error) {
+        console.log(error)
+        res.send(error)
+    }
+})
 
 
 module.exports = router
