@@ -18,8 +18,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.post(`/transactions`)
-    // axios.get(`http://localhost:3001/transactions`)
+    // axios.post(`/transactions`)
+    axios.get(`http://localhost:3001/transactions`)
       .then(res => {
         const transactions = res.data;
         this.setState({ transactions });
@@ -56,8 +56,8 @@ class App extends Component {
   deleteTransaction = (transactionId) => {
     let transactions = [...this.state.transactions]
     let indexOfTransaction = transactions.findIndex(tr => tr._id==transactionId)
-    axios.delete(`/transaction/${transactionId}`)
-    // axios.delete(`http://localhost:3001/transaction/${transactionId}`)
+    // axios.delete(`/transaction/${transactionId}`)
+    axios.delete(`http://localhost:3001/transaction/${transactionId}`)
     transactions.splice(indexOfTransaction, 1)
     this.setState({ transactions })
   }
