@@ -28,9 +28,9 @@ let port = 3001
 
 app.use('/', api)
 
-app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// app.get('*', function (req, res) {
+//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 
 app.listen(process.env.PORT || port, function(request, response){
     console.log(`Server is up and running smoothly`)
