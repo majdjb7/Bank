@@ -44,10 +44,6 @@ class App extends Component {
     let newTransaction = {amount: amount, vendor: vendor, category: category}
     // axios.post(`/transaction`, { newTransaction })
     axios.post(`http://localhost:3001/transaction`, { newTransaction })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
 
     transactions.push(newTransaction)
     this.setState({ transactions })
@@ -55,7 +51,7 @@ class App extends Component {
 
   deleteTransaction = (transactionId) => {
     let transactions = [...this.state.transactions]
-    let indexOfTransaction = transactions.findIndex(tr => tr._id==transactionId)
+    let indexOfTransaction = transactions.findIndex(tr => tr._id===transactionId)
     // axios.delete(`/transaction/${transactionId}`)
     axios.delete(`http://localhost:3001/transaction/${transactionId}`)
     transactions.splice(indexOfTransaction, 1)
@@ -68,7 +64,6 @@ class App extends Component {
     let balance = this.getBalance()
     let balanceAmount = balance[0]
     let balanceColor = balance[1]
-    console.log(balanceAmount);
     
     return (
       <Router>
