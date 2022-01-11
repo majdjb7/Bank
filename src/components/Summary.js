@@ -6,8 +6,8 @@ export default class Summary extends Component {
         let sumOfCategories = {}
         let transactions = this.props.transactions
         transactions.map(tr => {
-            sumOfCategories[tr.category] ? sumOfCategories[tr.category] += tr.amount
-                                        : sumOfCategories[tr.category] = tr.amount
+            sumOfCategories[tr.category] ? sumOfCategories[tr.category] += parseInt(tr.amount)
+                                        : sumOfCategories[tr.category] = parseInt(tr.amount)
         })
         return sumOfCategories
     }
