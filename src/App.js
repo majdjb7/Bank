@@ -18,7 +18,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // axios.post(`/transactions`)
+    this.getTransactions()
+  }
+
+  getTransactions = () => {
     axios.get(`http://localhost:3001/transactions`)
       .then(res => {
         const transactions = res.data;
@@ -42,7 +45,6 @@ class App extends Component {
   addOperation = (amount, vendor, category) => {
     let transactions = [...this.state.transactions]
     let newTransaction = {amount: amount, vendor: vendor, category: category}
-    // axios.post(`/transaction`, { newTransaction })
     axios.post(`http://localhost:3001/transaction`, { newTransaction })
 
     transactions.push(newTransaction)
@@ -52,7 +54,6 @@ class App extends Component {
   deleteTransaction = (transactionId) => {
     let transactions = [...this.state.transactions]
     let indexOfTransaction = transactions.findIndex(tr => tr._id===transactionId)
-    // axios.delete(`/transaction/${transactionId}`)
     axios.delete(`http://localhost:3001/transaction/${transactionId}`)
     transactions.splice(indexOfTransaction, 1)
     this.setState({ transactions })
@@ -61,9 +62,7 @@ class App extends Component {
 
   render() {
     const state = this.state
-    let balance = this.getBalance()
-    let balanceAmount = balance[0]
-    let balanceColor = balance[1]
+    let [balanceAmount, balanceColor] = this.getBalance()
     
     return (
       <Router>
@@ -78,7 +77,7 @@ class App extends Component {
           <Route path="/" exact render={() => <Home state={state}/>} />
           <Route path="/transactions" exact render={() => <Transactions deleteTransaction={this.deleteTransaction} state={state}/>} />
           <Route path="/operations" exact render={() => <Operations addOperation={this.addOperation} state={state}/>} />
-          <Route path="/summary" exact render={() => <Summary state={state}/>} />
+          <Route path="/summary" exact render={() => <Summary transactions={state.transactions}/>} />
         </div>
       </Router>
     );
